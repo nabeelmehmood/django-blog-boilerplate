@@ -25,7 +25,7 @@ SECRET_KEY = 'g1&%162#vt&&53m$9kt&a=mmt38$2f^854=_s@(r(3+hz7fdhk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://django-boilerplate-blog.herokuapp.com']
 
 
 # Application definition
