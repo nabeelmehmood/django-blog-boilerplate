@@ -16,6 +16,9 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'blog/templates/blog')
 
+CKEDITOR_FILENAME_GENERATOR = 'django_blog.utils.get_filename'
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -25,7 +28,10 @@ SECRET_KEY = 'g1&%162#vt&&53m$9kt&a=mmt38$2f^854=_s@(r(3+hz7fdhk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-boilerplate-blog.herokuapp.com',]
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'django-boilerplate-blog.herokuapp.com',
+]
 
 
 # Application definition
@@ -37,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
     'blog',
 ]
 
@@ -64,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.context.categories_context_processor',
             ],
         },
     },
@@ -115,6 +123,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/' 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

@@ -2,126 +2,226 @@
 {% load static %}
 <html>
     <head>
+
+        <!--- basic page needs
+        ================================================== -->
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Nabeel's Blog</title>
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-        <title></title>
+        <!-- mobile specific metas
+        ================================================== -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <link rel="stylesheet" href={% static 'css/blog.css'%}>
-        <link rel="stylesheet" href={% static 'css/clean-blog.min.css' %}>
-        <link rel="stylesheet" href={% static 'vendor/bootstrap/css/bootstrap.min.css'%}>
-        <link rel="stylesheet" href={% static 'vendor/font-awesome/css/font-awesome.min.css'%}>
+        <!-- CSS
+        ================================================== -->
+        <link rel="stylesheet" href={% static 'css/base.css' %}>
+        <link rel="stylesheet" href={% static 'css/vendor.css' %}>
+        <link rel="stylesheet" href={% static 'css/main.css' %}>
 
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <!-- script
+        ================================================== -->
+        <script src={% static 'js/modernizr.js' %}></script>
+        <script src={% static 'js/pace.min.js' %}></script>
 
+        <!-- favicons
+        ================================================== -->
+        <link rel="shortcut icon" href={% static 'favicon.ico' %} type="image/x-icon">
+        <link rel="icon" href={% static 'favicon.ico' %} type="image/x-icon">
 
     </head>
+    
+    <body id="top">
 
-    <body>
+         <!-- pageheader
+    ================================================== -->
+    <section class="s-pageheader s-pageheader--home">
 
-        <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand" href="/">Nabeel's Blog</a>
-            </div>
+        <header class="header">
+            <div class="header__content row">
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <div class="header__logo">
+                    <a class="logo" href="index.html">
+                        <h1 class="logo" style="color:white;font-family:librebaskerville-bold, serif;letter-spacing:1rem;margin-top:0rem ">Nabeel's Blog</h1>
+                    </a>
+                </div> <!-- end header__logo -->
+
+                <ul class="header__social">
                     <li>
-                        <a href="/">Home</a>
+                        <a href={% url 'blog:post_list' %}><i class="fa fa-github" aria-hidden="true"></i></a>
                     </li>
                     <li>
-                        <a href={% url 'blog:about' %}>About</a>
+                        <a href={% url 'blog:post_list' %}><i class="fa fa-linkedin" aria-hidden="true"></i></a>
                     </li>
-                    <li>
-                        <a href={% url 'blog:post_detail' pk=1 %}>Sample Post</a>
-                    </li>
-                    {% if is_authenticated %}
-                    <li>
-                        <a href={% url 'logout' %}>Logout</a>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href={% url 'login' %}>Login</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+                </ul> <!-- end header__social -->
+
+                {% comment %} <a class="header__search-trigger" href={% url 'blog:post_list' %}></a>
+
+                <div class="header__search">
+
+                    <form role="search" method="get" class="header__search-form" action="#">
+                        <label>
+                            <span class="hide-content">Search for:</span>
+                            <input type="search" class="search-field" placeholder="Type Keywords" value="" name="s" title="Search for:" autocomplete="off">
+                        </label>
+                        <input type="submit" class="search-submit" value="Search">
+                    </form>
+        
+                    <a href={% url 'blog:post_list' %} title="Close Search" class="header__overlay-close">Close</a>
+
+                </div>  <!-- end header__search --> {% endcomment %}
 
 
+                <a class="header__toggle-menu" href={% url 'blog:post_list' %} title="Menu"><span>Menu</span></a>
+
+                <nav class="header__nav-wrap">
+
+                    <h2 class="header__nav-heading h6">Site Navigation</h2>
+
+                    <ul class="header__nav">
+                        <li class="current"><a href="index.html" title="">Home</a></li>
+                        <li class="has-children">
+                            <a href={% url 'blog:post_list' %} title="">Categories</a>
+                            <ul class="sub-menu">
+                            {% for cat in categories %}
+                                <li><a href="category.html">{{cat.title}}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </li>
+                        <li><a href="about.html" title="">About</a></li>
+                        <li><a href="contact.html" title="">Contact</a></li>
+                    </ul> <!-- end header__nav -->
+
+                    <a href={% url 'blog:post_list' %} title="Close Menu" class="header__overlay-close close-mobile-menu">Close</a>
+
+                </nav> <!-- end header__nav-wrap -->
+
+            </div> <!-- header-content -->
+
+            
+        </header> <!-- header -->
+        {% if '/home' in request.path %}
+            {% include 'featured.html' %}
+        {% endif %}
+    </section>
     {% block content %}
-    {% endblock %}
 
+    {% endblock content %}
+  <!-- s-footer
+    ================================================== -->
+    <footer class="s-footer">
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
+        <div class="s-footer__main">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <ul class="list-inline text-center">
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://github.com/nabeelmehmood">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/nabeel-mehmood-708328145/">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                        </li>
+                
+                <div class="col-two md-four mob-full s-footer__sitelinks">
+                        
+                    <h4>Quick Links</h4>
+
+                    <ul class="s-footer__linklist">
+                        <li><a href={% url 'blog:post_list' %}>Home</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Blog</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Styles</a></li>
+                        <li><a href={% url 'blog:post_list' %}>About</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Contact</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Privacy Policy</a></li>
                     </ul>
-                    <p class="copyright text-muted">Made with &hearts; by Nabeel Mehmood | 2020</p>
+
+                </div> <!-- end s-footer__sitelinks -->
+
+                <div class="col-two md-four mob-full s-footer__archives">
+                        
+                    <h4>Archives</h4>
+
+                    <ul class="s-footer__linklist">
+                        <li><a href={% url 'blog:post_list' %}>January 2018</a></li>
+                        <li><a href={% url 'blog:post_list' %}>December 2017</a></li>
+                        <li><a href={% url 'blog:post_list' %}>November 2017</a></li>
+                        <li><a href={% url 'blog:post_list' %}>October 2017</a></li>
+                        <li><a href={% url 'blog:post_list' %}>September 2017</a></li>
+                        <li><a href={% url 'blog:post_list' %}>August 2017</a></li>
+                    </ul>
+
+                </div> <!-- end s-footer__archives -->
+
+                <div class="col-two md-four mob-full s-footer__social">
+                        
+                    <h4>Social</h4>
+
+                    <ul class="s-footer__linklist">
+                        <li><a href={% url 'blog:post_list' %}>Facebook</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Instagram</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Twitter</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Pinterest</a></li>
+                        <li><a href={% url 'blog:post_list' %}>Google+</a></li>
+                        <li><a href={% url 'blog:post_list' %}>LinkedIn</a></li>
+                    </ul>
+
+                </div> <!-- end s-footer__social -->
+
+                <div class="col-five md-full end s-footer__subscribe">
+                        
+                    <h4>Our Newsletter</h4>
+
+                    <p>Sit vel delectus amet officiis repudiandae est voluptatem. Tempora maxime provident nisi et fuga et enim exercitationem ipsam. Culpa consequatur occaecati.</p>
+
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="group" novalidate="true">
+
+                            <input type="email" value="" name="EMAIL" class="email" id="mc-email" placeholder="Email Address" required="">
+                
+                            <input type="submit" name="subscribe" value="Send">
+                
+                            <label for="mc-email" class="subscribe-message"></label>
+                
+                        </form>
+                    </div>
+
+                </div> <!-- end s-footer__subscribe -->
+
+            </div>
+        </div> <!-- end s-footer__main -->
+
+        <div class="s-footer__bottom">
+            <div class="row">
+                <div class="col-full">
+                    <div class="s-footer__copyright">
+                        <span>© Copyright Philosophy 2018</span> 
+                        <span>Site Template by <a href="https://colorlib.com/">Colorlib</a></span>
+                    </div>
+
+                    <div class="go-top">
+                        <a class="smoothscroll" title="Back to Top" href="#top"></a>
+                    </div>
                 </div>
             </div>
+        </div> <!-- end s-footer__bottom -->
+
+    </footer> <!-- end s-footer -->
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader">
+            <div class="line-scale">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
         </div>
-    </footer>
+    </div>
 
-    <!-- jQuery -->
-    <script src={% static 'vendor/jquery/jquery.min.js' %}></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src={% static 'vendor/bootstrap/js/bootstrap.min.js' %}></script>
+    <!-- Java Script
+    ================================================== -->
+    <script src={% static 'js/jquery-3.2.1.min.js' %}></script>
+    <script src={% static 'js/plugins.js' %}></script>
+    <script src={% static 'js/main.js' %}></script>
 
-    <!-- Contact Form JavaScript -->
-    <script src={% static 'js/jqBootstrapValidation.js' %}></script>
-    <script src={% static 'js/contact_me.js' %}></script>
+</body>
 
-    <!-- Theme JavaScript -->
-    <script src={% static 'js/clean-blog.min.js' %}></script>
-
-    </body>
 </html>

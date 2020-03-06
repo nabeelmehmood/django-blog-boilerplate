@@ -20,8 +20,9 @@ class AboutView(TemplateView):
 
 class PostListView(ListView):
     model = Post
+    paginate_by = 10
     def get_queryset(self):
-        return Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+        return Post.objects.all().order_by('-published_date')
     
 
 class PostDetailView(DetailView):
@@ -94,3 +95,7 @@ def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
     return redirect('post_detail', pk=post.pk)
+
+def redirect_view(request):
+    response = redirect('/home')
+    return response

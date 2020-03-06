@@ -1,20 +1,26 @@
 {% extends 'blog/base.html' %}
-
+{% load static %}
 {% block content %}
+{% comment %} 
+<div class="container">
+    <div class="row" style="padding-top: 6rem">
+        <div class="col col-3">
+            <h2>Login: </h2>
+        </div>
+        <div class="col col-9">
+            {% if form.errors %}
+                <p>Your username and password didn't match.</p>
+            {% endif %}
 
-<div class="jumbotron">
-    <h2>Login: </h2>
-    
-    {% if form.errors %}
-        <p>Your username and password didn't match.</p>
-    {% endif %}
-
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-primary" value="Login">
-        <input type="hidden" name="next" value="{{next}}">
-    </form>
-</div>
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" class="btn btn-primary" value="Login">
+                <input type="hidden" name="next" value="{{next}}">
+            </form>
+        </div>
+    </div>
+</div> {% endcomment %}
 
 {% endblock %}
+
