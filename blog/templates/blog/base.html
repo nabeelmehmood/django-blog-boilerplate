@@ -80,12 +80,12 @@
                     <h2 class="header__nav-heading h6">Site Navigation</h2>
 
                     <ul class="header__nav">
-                        <li class="current"><a href="index.html" title="">Home</a></li>
+                        <li class="current"><a href={% url 'blog:post_list' %} title="">Home</a></li>
                         <li class="has-children">
                             <a href={% url 'blog:post_list' %} title="">Categories</a>
                             <ul class="sub-menu">
                             {% for cat in categories %}
-                                <li><a href="category.html">{{cat.title}}</a></li>
+                                <li><a href={% url 'blog:category_posts' cat.id %}>{{cat.title}}</a></li>
                             {% endfor %}
                             </ul>
                         </li>
@@ -112,7 +112,7 @@
     ================================================== -->
     <footer class="s-footer">
 
-        <div class="s-footer__main">
+        {% comment %} <div class="s-footer__main">
             <div class="row">
                 
                 <div class="col-two md-four mob-full s-footer__sitelinks">
@@ -181,7 +181,7 @@
                 </div> <!-- end s-footer__subscribe -->
 
             </div>
-        </div> <!-- end s-footer__main -->
+        </div> <!-- end s-footer__main --> {% endcomment %}
 
         <div class="s-footer__bottom">
             <div class="row">

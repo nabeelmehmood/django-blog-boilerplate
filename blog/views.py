@@ -6,9 +6,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (TemplateView, ListView, 
                                   DetailView, CreateView,
                                   UpdateView, DeleteView,)
-
+from django.db.models import Q 
 from blog.forms import PostForm, CommentForm
-from blog.models import Post, Comment
+from blog.models import Post, Comment, Category
 
 ##################
 # Posts Views
@@ -23,6 +23,18 @@ class PostListView(ListView):
     paginate_by = 10
     def get_queryset(self):
         return Post.objects.all().order_by('-published_date')
+
+        
+
+class CategoryPostListView(ListView):
+    model = Post
+    paginate_by = 10
+
+    def get_queryset(self):
+        id = self.kwargs['pk']
+        category = Category.objects.get(id=id)
+        print(category)
+        return category.post_set.all()
     
 
 class PostDetailView(DetailView):
