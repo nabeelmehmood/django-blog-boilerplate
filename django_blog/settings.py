@@ -146,5 +146,5 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-if not os.path.exists(dotenv_file):
-    del DATABASES['default']['OPTIONS']['sslmode']
+# if not os.path.exists(dotenv_file):
+#     del DATABASES['default']['OPTIONS']['sslmode']
